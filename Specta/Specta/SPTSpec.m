@@ -200,7 +200,11 @@
 
 - (void)recordFailureWithDescription:(NSString *)description inFile:(NSString *)filename atLine:(NSUInteger)lineNumber expected:(BOOL)expected {
   SPTSpec *currentSpec = SPTCurrentSpec;
-  [currentSpec.spt_run recordFailureWithDescription:description inFile:filename atLine:lineNumber expected:expected];
+  if(currentSpec != self) {
+    [currentSpec recordFailureWithDescription:description inFile:filename atLine:lineNumber expected:expected];
+  } else {
+    [super recordFailureWithDescription:description inFile:filename atLine:lineNumber expected:expected];
+  }
 }
 
 - (void)performTest:(XCTestRun *)run {

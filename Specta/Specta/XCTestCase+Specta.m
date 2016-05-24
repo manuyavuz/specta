@@ -59,7 +59,10 @@
       return;
     }
   }
-  [self _recordUnexpectedFailureWithDescription:description exception:exception];
+
+  if (![exception isKindOfClass:NSClassFromString(@"_XCTestCaseInterruptionException")]) {
+    [self _recordUnexpectedFailureWithDescription:description exception:exception];
+  }
 }
 
 @end
